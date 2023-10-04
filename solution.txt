@@ -1,0 +1,157 @@
+------------------------------------------------------------
+1. Create Database and connect to it
+------------------------------------------------------------
+psql --username=freecodecamp --dbname=postgres;
+
+CREATE DATABASE universe;
+
+\c universe
+
+------------------------------------------------------------
+2. Create tables as required conditions
+------------------------------------------------------------
+CREATE TABLE constellation (
+    constellation_id SERIAL PRIMARY KEY,
+    name VARCHAR(30) UNIQUE NOT NULL,
+    year_discovered INT,
+    meaning TEXT,
+    star_id INT
+);
+
+CREATE TABLE galaxy (
+    galaxy_id SERIAL PRIMARY KEY,
+    name VARCHAR(50) UNIQUE NOT NULL,
+    meaning TEXT,
+    is_visible_to_naked_eye BOOLEAN NOT NULL,
+    constellation_id INT
+);
+
+CREATE TABLE moon (
+    moon_id SERIAL PRIMARY KEY,
+    name VARCHAR(30) UNIQUE NOT NULL,
+    year_discovered INT NOT NULL,
+    diameter_in_km INT NOT NULL,
+    planet_id INT
+);
+
+CREATE TABLE planet (
+    planet_id SERIAL PRIMARY KEY,
+    name VARCHAR(30) UNIQUE NOT NULL,
+    orbital_period_in_years NUMERIC(10,2),
+    rotation_period_in_days NUMERIC(6,2),
+    has_moon BOOLEAN NOT NULL,
+    star_id INT
+);
+
+CREATE TABLE star (
+    star_id SERIAL PRIMARY KEY,
+    name VARCHAR(30) UNIQUE NOT NULL,
+    distance_in_light_years NUMERIC(7,2) NOT NULL,
+    brightness_of_star NUMERIC(4,2) NOT NULL,
+    approval_date DATE,
+    galaxy_id INT
+);
+
+------------------------------------------------------------
+3. Fill the tables as required data conditions
+------------------------------------------------------------
+INSERT INTO constellation VALUES 
+(1, 'Aquarius', NULL, 'water-bearer', 1),
+(2, 'Aries', NULL, 'ram', 2),
+(3, 'Boötes', NULL, 'herdsman', 3),
+(4, 'Capricornus', NULL, 'sea goat', 4),
+(5, 'Centaurus', NULL, 'centaur', 5),
+(6, 'Cetus', NULL, 'sea monster (later interpreted as a whale)', 9),
+(7, 'Coma Berenices', 1536, 'Berenices hair', 6),
+(8, 'Leo', NULL, 'lion', 7),
+(9, 'Ophiuchus', NULL, 'serpent-bearer', 12),
+(10, 'Pegasus', NULL, 'Pegasus (mythological winged horse)', 10),
+(11, 'Sagittarius', NULL, 'archer', 11),
+(12, 'Taurus', NULL, 'bull', 8),
+(13, 'Virgo', NULL, 'virgin or maiden', 13);
+
+INSERT INTO galaxy VALUES 
+(1, 'Backward Galaxy', 'It appears to rotate backwards, as the tips of the spiral arms point in the direction of rotation.', false, 5),
+(4, 'Centaurus A', 'Centaurus A has been spotted with the naked eye by Stephen James', true, 5),
+(2, 'Black Eye Galaxy', 'It has a spectacular dark band of absorbing dust in front of the galaxys bright nucleus, giving rise to its nicknames of the "Black Eye" or "Evil Eye" galaxy.', false, 7),
+(7, 'Malin 1', 'Discovered and named by David Malin.', false, 7),
+(8, 'Mice Galaxies', 'Appearance is similar to a mouse.', false, 7),
+(10, 'Needle Galaxy', 'Named due to its slender appearance.', false, 7),
+(6, 'Little Sombrero Galaxy', 'Named after its similarity to the Sombrero Galaxy.', false, 10),
+(9, 'Milky Way', 'The appearance from Earth of the galaxy—a band of light', true, 11),
+(11, 'Wolf-Lundmark-Melotte', 'Named for the three astronomers instrumental in its discovery and identification.', false, 6),
+(3, 'Butterfly Galaxies', 'Looks are similar to a butterfly.', false, 13),
+(12, 'Sombrero Galaxy', 'Similar in appearance to a sombrero.', false, 13),
+(5, 'Coma Pinwheel Galaxy', 'Named after its resemblance to the Pinwheel Galaxy and its location in the Coma Benerices constellation.', false, 7);
+
+INSERT INTO moon VALUES 
+(2, 'Phobos', 1877, 23, 4),
+(3, 'Deimos', 1877, 13, 4),
+(4, 'Io', 1610, 3630, 4),
+(8, 'Amalthea', 1892, 200, 4),
+(1, 'Moon', 1609, 3476, 3),
+(5, 'Europa', 1610, 3138, 5),
+(6, 'Ganymede', 1610, 5262, 5),
+(7, 'Callisto', 1610, 4800, 5),
+(9, 'Himalia', 1904, 170, 5),
+(10, 'Mimas', 1789, 394, 6),
+(11, 'Enceladus', 1789, 502, 6),
+(19, 'Pandora', 1980, 100, 6),
+(12, 'Ariel', 1851, 1160, 7),
+(13, 'Umbriel', 1851, 1190, 7),
+(14, 'Titania', 1787, 1610, 7),
+(20, 'Miranda', 1948, 485, 7),
+(15, 'Triton', 1846, 2720, 8),
+(16, 'Nereid', 1949, 340, 8),
+(17, 'Charon', 1978, 1200, 11),
+(18, 'Styx', 2012, 20, 11);
+
+INSERT INTO planet VALUES 
+(1, 'Mercury', 0.24, 58.65, false, 13),
+(2, 'Venus', 0.81, 243.02, false, 7),
+(9, 'Ceres', 4.60, 0.38, false, 7),
+(3, 'Earth', 1.00, 1.00, true, 5),
+(4, 'Mars', 1.88, 1.03, true, 8),
+(17, 'Sedna', 12059.00, 0.43, false, 8),
+(5, 'Jupiter', 11.86, 0.41, true, 9),
+(16, 'Eris', 559.00, 15.79, true, 9),
+(6, 'Saturn', 29.45, 0.44, true, 4),
+(7, 'Uranus', 84.02, 0.72, true, 2),
+(8, 'Neptune', 164.79, 0.67, true, 1),
+(15, 'Gonggong', 552.50, 0.93, true, 1),
+(10, 'Orcus', 247.50, 9.54, true, 11),
+(11, 'Pluto', 247.90, 6.39, true, 11),
+(12, 'Haumea', 283.80, 0.16, true, 3),
+(13, 'Quaoar', 288.00, 0.74, true, 12),
+(14, 'Makemake', 306.20, 0.95, true, 6);
+
+INSERT INTO star VALUES 
+(1, 'Sadalsuud', 612.00, 2.90, '2016-08-21', 9),
+(2, 'Hamal', 66.00, 2.01, '2016-07-20', 9),
+(3, 'Arcturus', 37.00, 0.05, '2016-06-30', 9),
+(4, 'Deneb Algedi', 39.00, 2.85, '2017-02-01', 9),
+(5, 'Rigil Kentaurus', 4.36, 0.01, '2016-11-06', 9),
+(6, 'Beta Comae Berenices', 30.00, 4.26, '2016-06-30', 9),
+(7, 'Regulus', 77.00, 1.36, '2016-06-30', 9),
+(8, 'Aldebaran', 65.23, 0.85, '2016-06-30', 9),
+(9, 'Diphda', 96.22, 2.04, '2016-08-21', 9),
+(10, 'Enif', 688.20, 2.40, '2016-07-20', 9),
+(11, 'Kaus Australis', 143.20, 1.85, '2016-07-20', 9),
+(12, 'Rasalhague', 48.60, 2.08, '2016-07-20', 9),
+(13, 'Spica', 260.90, 1.04, '2016-06-30', 9);
+
+------------------------------------------------------------
+4. Foreign Key assignment
+------------------------------------------------------------
+ALTER TABLE galaxy ADD FOREIGN KEY (constellation_id) REFERENCES constellation(constellation_id);
+
+ALTER TABLE moon ADD FOREIGN KEY (planet_id) REFERENCES planet(planet_id);
+
+ALTER TABLE planet ADD FOREIGN KEY (star_id) REFERENCES star(star_id);
+
+ALTER TABLE star ADD FOREIGN KEY (galaxy_id) REFERENCES galaxy(galaxy_id);
+
+------------------------------------------------------------
+5. Compact sql db queries into universe.sql file
+------------------------------------------------------------
+pg_dump -cC --inserts -U freecodecamp universe > universe.sql
