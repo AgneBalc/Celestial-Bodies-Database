@@ -1,11 +1,11 @@
 # Celestial-Bodies-Database
 This is the result to complete the Celestial Bodies Database project. Instructions for building this project can be found at https://www.freecodecamp.org/learn/relational-database/build-a-celestial-bodies-database-project/build-a-celestial-bodies-database
 
-**Open file [solution.txt](https://github.com/AgneBalc/Celestial-Bodies-Database) To follow my terminal command. Solutions divided into several steps:**
+**Open file [solution.txt](https://github.com/AgneBalc/Celestial-Bodies-Database/blob/master/solution.txt) To follow my terminal command. Solutions divided into several steps:**
 1. Create database and connect to it.
 2. Create tables as required conditions.
 3. Fill the tables as required data conditions.
-4. Primary Key and Foreign Key assignment.
+4. Foreign Key assignment.
 5. Compact queries into universe.sql file.
 
 ## Instructions
